@@ -1,4 +1,4 @@
-package com.rs.ecommerce.model.DTO;
+package com.rs.ecommerce.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

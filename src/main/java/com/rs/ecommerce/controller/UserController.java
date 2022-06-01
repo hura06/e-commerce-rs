@@ -1,12 +1,12 @@
 package com.rs.ecommerce.controller;
 
 
-import com.rs.ecommerce.model.DTO.Mapper;
-import com.rs.ecommerce.model.DTO.UserCreationDTO;
-import com.rs.ecommerce.model.DTO.UserDTO;
-import com.rs.ecommerce.model.DTO.UserLoginDTO;
-import com.rs.ecommerce.model.User;
+import com.rs.ecommerce.model.UserDTO;
+import com.rs.ecommerce.model.UserLoginDTO;
+import com.rs.ecommerce.repo.UserRepository;
 import com.rs.ecommerce.service.UserService;
+import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,25 +14,34 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("v1/users")
 public class UserController {
 
-    private final UserService userService;
-    private com.rs.ecommerce.model.DTO.Mapper mapper;
+    private UserService userService;
 
-    public UserController(UserService userService, Mapper mapper) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.mapper = mapper;
+
     }
 
     @PostMapping("/create")
     @ResponseBody
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserCreationDTO userCreationDTO){
-        User user = mapper.toUser(userCreationDTO);
-        return ResponseEntity.ok(userService.createUser(user));
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) throws Exception {
+        return ResponseEntity.ok(userService.createUser(userDTO));
     }
 
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity<UserDTO> loginUser(@RequestBody UserLoginDTO userLoginDTO){
-        User user = mapper.toUser(userLoginDTO);
-        return ResponseEntity.ok()
+    public ResponseEntity<String> loginUser(@RequestBody UserLoginDTO userLoginDTO) throws Exception {
+
+        return ResponseEntity.ok(userService.loginUser(userLoginDTO));
+
     }
 }
+/*
+
+@PostMapping("/signin")
+    public ResponseEntity<String> authenticateUser(@RequestBody LoginDto loginDto){
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                loginDto.getUsernameOrEmail(), loginDto.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return new ResponseEntity<>("User signed-in successfully!.", HttpStatus.OK);
+ */

@@ -1,37 +1,33 @@
-package com.rs.ecommerce.model;
+package com.rs.ecommerce.entity;
 
-import com.sun.xml.bind.v2.TODO;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
-@RequiredArgsConstructor
 @Data
-@Builder
+@Table(name = "User")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "first_name", length = 50,nullable = true)
     private String firstName;
 
+    @Column(name = "description", length = 1000,nullable = true)
     private String lastName;
 
+    @Column(name = "email", length = 30,nullable = true)
     private String email;
 
+    @Column(name = "password", length = 10,nullable = true)
     private String password;
 
     @OneToOne
     private Role roles;
-
-
 
 
     String encrypt(String password) {

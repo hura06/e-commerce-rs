@@ -1,23 +1,21 @@
-package com.rs.ecommerce.model;
+package com.rs.ecommerce.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
 @RequiredArgsConstructor
-@Builder
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
+
+    @Column(name = "role_name", length = 30)
     private String name;
 }
